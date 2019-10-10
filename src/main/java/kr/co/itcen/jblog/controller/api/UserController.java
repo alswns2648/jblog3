@@ -18,8 +18,8 @@ public class UserController {
 	private UserService userService;
 
 	@ResponseBody
-	@RequestMapping("/checkemail")
-	public JSONResult checkid(@RequestParam(value="email", required=true, defaultValue="") String id) {
+	@RequestMapping("/checkid")
+	public JSONResult checkid(@RequestParam(value="id", required=true, defaultValue="") String id) {
 
 		Boolean exist = userService.existUser(id);
 		

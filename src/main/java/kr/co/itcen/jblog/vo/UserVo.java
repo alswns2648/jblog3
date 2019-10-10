@@ -1,10 +1,12 @@
 package kr.co.itcen.jblog.vo;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserVo {
 	@NotEmpty
+	@Email
 	private String id;
 	
 	@NotEmpty

@@ -1,6 +1,5 @@
 package kr.co.itcen.jblog.controller;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,28 +45,28 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(UserVo vo,HttpSession session,Model model) {
-		UserVo userVo= userService.getUser(vo);
-		if(userVo == null) {
-			model.addAttribute("result","fail");
-			return "user/login";
-		}
-		//로그인 처리
-		session.setAttribute("authUser", userVo);
-		return "redirect:/";
-	}
-	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(HttpSession session) {
-		//접근 제어(ACL)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser != null) {
-			session.removeAttribute("authUser");
-			session.invalidate();
-		}
-		return "redirect:/";
-	}
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	public String login(UserVo vo,HttpSession session,Model model) {
+//		UserVo userVo= userService.getUser(vo);
+//		if(userVo == null) {
+//			model.addAttribute("result","fail");
+//			return "user/login";
+//		}
+//		//로그인 처리
+//		session.setAttribute("authUser", userVo);
+//		return "redirect:/";
+//	}
+//	
+//	@RequestMapping(value="/logout", method=RequestMethod.GET)
+//	public String logout(HttpSession session) {
+//		//접근 제어(ACL)
+//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+//		if(authUser != null) {
+//			session.removeAttribute("authUser");
+//			session.invalidate();
+//		}
+//		return "redirect:/";
+//	}
 
 
 }

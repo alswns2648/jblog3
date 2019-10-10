@@ -35,17 +35,16 @@
 			</bean>
 		</mvc:message-converters>
 		
-		<!--  Argument Resolvers 
+		<!-- Argument Resolver -->
 		<mvc:argument-resolvers>
 			<bean class="kr.co.itcen.jblog.security.AuthUserHandlerMethodArgumentResolver" />
-		</mvc:argument-resolvers>-->
-		
+		</mvc:argument-resolvers>
 	</mvc:annotation-driven>
 	
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
 	<mvc:default-servlet-handler/>
 
-	<!-- Interceptor 
+	<!-- Interceptor -->  
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
@@ -54,17 +53,8 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/user/logout" />
 			<bean class="kr.co.itcen.jblog.security.LogoutInterceptor"/>
-		</mvc:interceptor>	
-		<mvc:interceptor>
-			<mvc:mapping path="/**" />
-			<mvc:exclude-mapping path="/user/auth"/>
-			<mvc:exclude-mapping path="/user/logout"/>
-			<mvc:exclude-mapping path="/assets/**"/>
-			<bean class="kr.co.itcen.jblog.security.AuthInterceptor"/>
-		</mvc:interceptor>	
-	</mvc:interceptors>-->
-
-	
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	<!-- View Resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -74,7 +64,7 @@
 		<property name="order" value="1" />
 	</bean>
 	
-	<!-- MessageSource
+	<!-- MessageSource -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 	   <property name="basenames">
 	      <list>
@@ -82,7 +72,6 @@
 	      </list>
 	   </property>
 	</bean> 
-	-->
 
 	<context:annotation-config />
 	<context:component-scan base-package="kr.co.itcen.jblog.controller, kr.co.itcen.jblog.exception" />

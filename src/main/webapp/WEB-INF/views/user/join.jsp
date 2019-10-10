@@ -12,18 +12,18 @@
 <script>
 	$(function(){
 		$("#blog-id").change(function(){
-			$("#btn-checkemail").show();
-			$("#img-checkemail").hide()();
+			$("#btn-checkid").show();
+			$("#img-checkid").hide()();
 		});
 		
-		$("#btn-checkemail").click(function(){
-			var email=$("#blog-id").val();
-			if(email==""){
+		$("#btn-checkid").click(function(){
+			var id=$("#blog-id").val();
+			if(id==""){
 				return;
 			}
 			//AJAX 통신
 			$.ajax({
-				url:"${pageContext.servletContext.contextPath}/api/user/checkemail?email="+email,
+				url:"${pageContext.servletContext.contextPath}/api/user/checkid?id=" + id,
 				type:"get",
 				dataType:"json",
 				data:"",
@@ -38,8 +38,8 @@
 						$("#blog-id").focus();
 						return;
 					}
-					$("#btn-checkemail").hide();
-					$("#img-checkemail").show();
+					$("#btn-checkid").hide();
+					$("#img-checkid").show();
 				},
 				error:function(xhr,error){
 					console.err("error"+error);
@@ -61,8 +61,8 @@
 			
 			<label class="block-label" for="blog-id">아이디</label>
 			<input id="blog-id" name="id" type="text"> 
-			<input id="btn-checkemail" type="button" value="중복확인">
-			<img id="img-checkemail" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
+			<input id="btn-checkid" type="button" value="중복확인">
+			<img id="img-checkid" style="display: none;" src="${pageContext.request.contextPath}/assets/images/check.png">
 
 			<label class="block-label" for="password">패스워드</label>
 			<input id="password" name="password" type="password" />
