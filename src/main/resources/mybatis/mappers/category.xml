@@ -2,11 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="category">
 	<!-- 회원가입과 동시에 생성 -->
-	<insert id="insert" parameterType="string">
+	<insert id="insert" parameterType="String">
 		<![CDATA[
 		insert
 		  into category
-		values (null, #{id }, '이름을 설정하세요.', '설명을 작성하세요.', now())
+		values (null, #{user.id }, '이름을 설정하세요.', '설명을 작성하세요.', now())
 		]]>
 	</insert>
+	
+	<!-- category정보를 불러와서 List로 저장 -->
+	<select id="getlist" parameterType="String" resultType="categoryvo">
+		<![CDATA[
+		select no,
+			category_name, 
+			description, 
+			date_format(reg_date,'%Y/%m/%d') as reg_date
+		from category
+		where blog_id = #{user.id }
+		]]>
+	</select>
+	
 </mapper>
+

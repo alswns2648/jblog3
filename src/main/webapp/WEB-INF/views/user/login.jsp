@@ -14,13 +14,14 @@
 	<div class="center-content">
 		<h1 class="logo">JBlog</h1>
 		<c:import url="/WEB-INF/views/includes/menu.jsp"></c:import>
-		<form class="login-form" method="post"
-			action="${pageContext.servletContext.contextPath }/user/login">
+		<form 
+			class="login-form" method="post"
+			action="${pageContext.servletContext.contextPath }/user/auth">
 			
       		<label>아이디</label> <input type="text" name="id">
       		
       		<label>패스워드</label> <input type="password" name="password">
-      		<c:if test='${"fail" == result }'>
+      		<c:if test='${fail == "fail" }'>
 						<p>
 						로그인이 실패 했습니다.
 						</p>
