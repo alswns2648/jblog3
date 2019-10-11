@@ -3,15 +3,15 @@
 <mapper namespace="blog">
 
 	<!-- 회원가입과 동시에 생성 -->
-	<insert id="insert" parameterType="string">
+	<insert id="insert" parameterType="map" >
 		<![CDATA[
 		insert
 		  into blog
-		values (#{id }, concat(#{id}, '님의 블로그입니다.'), '/assets/images/spring_logo.jpg')
+		values (#{id }, concat(#{name }, '님의 블로그입니다.'), '/assets/images/spring_logo.jpg')
 		]]>
 	</insert>
 	
-	<!-- 글 내용 보기 -->
+	<!-- 블로그 정보 보기 -->
 	<select id="get" parameterType="string" resultType="blogvo">
 		<![CDATA[
 		select blog_id,
@@ -19,7 +19,18 @@
 				logo
 		from blog
 		where blog_id = #{blog_id }
-				
 		]]>
 	</select>
+	
+	<!-- 파일 업로드 -->
+	<update id="update" parameterType="blogvo" >
+	<![CDATA[
+		update blog 
+		set title = #{title },
+			logo = #{logo }
+		where blog_id= #{blog_id}
+	]]>
+	</update>
+	
+	
 </mapper>

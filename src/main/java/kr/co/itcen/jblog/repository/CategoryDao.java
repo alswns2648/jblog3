@@ -10,20 +10,50 @@ import kr.co.itcen.jblog.vo.CategoryVo;
 
 @Repository
 public class CategoryDao {
-	
+
 	@Autowired
 	private SqlSession sqlSession;
 	
-	//카테고리 자동생성
-	public Boolean insert(String id){
-		int count = sqlSession.insert("category.insert", id);
-		return count == 1;
+	//default 카테고리 생성
+	public Boolean insert(String id) {
+		int count = sqlSession.insert("category.insertdefault",id);		
+		return count ==1;
+
 	}
-	
+	//카테고리 count
+	public List<CategoryVo> count(String id) {
+		List<CategoryVo> list = sqlSession.selectList("category.count",id);
+		return list;
+	}
+
 	//카테고리 list 가져오기
 	public List<CategoryVo> getList(String id) {
 		List<CategoryVo> list = sqlSession.selectList("category.getlist",id);
 		return list;
+	}
+
+	//카테고리 title 가져오기
+	public List<CategoryVo> getTitle(String id) {
+		List<CategoryVo> list = sqlSession.selectList("category.getcategoryname",id);
+		return list;
+	}
+
+	// 카테고리 추가
+	public Long insert(CategoryVo vo) {
+		int count =sqlSession.insert("category.insert",vo); 
+		return vo.getNo();
+	}
+	
+	//카테고리 가져오기
+	public CategoryVo get(Long no) {
+		CategoryVo vo = sqlSession.selectOne("category.get",no);
+		return vo;
+	}
+
+	//카테고리 삭제
+	public Boolean delete(Long no) {
+		int count = sqlSession.delete("category.delete",no);
+		return count==1;
 	}
 
 }

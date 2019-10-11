@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import kr.co.itcen.jblog.vo.BlogVo;
 import kr.co.itcen.jblog.vo.PostVo;
 
 
@@ -17,7 +18,7 @@ public class PostDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	//post list를 가져옴
+	//특정 카테고리에 대한 post list를 가져옴
 	public List<PostVo> getList(Long categoryno) {
 		List<PostVo> list = sqlSession.selectList("post.getList",categoryno);
 		return list;
@@ -35,4 +36,10 @@ public class PostDao {
 		return vo;
 	}
 	
+	//post (제목, 내용)
+	public Boolean insert(PostVo vo) {
+		int count=sqlSession.insert("post.insert",vo);
+		return count==1;
+	}
+
 }

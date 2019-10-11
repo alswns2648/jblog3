@@ -15,6 +15,7 @@ public class CategoryVo {
 	@NotEmpty
 	private String description;
 	private String reg_date;
+	private Long count;
 	
 	public Long getNo() {
 		return no;
@@ -46,11 +47,16 @@ public class CategoryVo {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+	public Long getCount() {
+		return count;
+	}
+	public void setCount(Long count) {
+		this.count = count;
+	}
 	@Override
 	public String toString() {
 		return "CategoryVo [no=" + no + ", blog_id=" + blog_id + ", category_name=" + category_name + ", description="
-				+ description + ", reg_date=" + reg_date + "]";
-	}	
-	
+				+ description + ", reg_date=" + reg_date + ", count=" + count + "]";
+	}
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import kr.co.itcen.jblog.repository.BlogDao;
 import kr.co.itcen.jblog.repository.CategoryDao;
 import kr.co.itcen.jblog.repository.UserDao;
+import kr.co.itcen.jblog.vo.BlogVo;
 import kr.co.itcen.jblog.vo.UserVo;
 
 @Service
@@ -16,11 +17,15 @@ public class UserService {
 	private BlogDao blogDao;
 	@Autowired
 	private CategoryDao categoryDao;
-
+	
+	//회원가입
 	public void join(UserVo vo) {
 		userDao.insert(vo);
-		blogDao.insert(vo.getId());
+		//블로그 생성
+		blogDao.insert(vo.getId(), vo.getName());
+		//카테고리 생성
 		categoryDao.insert(vo.getId());
+		
 	}
 	
 	//사용자 중복 확인

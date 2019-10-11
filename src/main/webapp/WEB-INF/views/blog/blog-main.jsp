@@ -18,29 +18,27 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<c:if test="${not empty post }">
-					<h4>${post.title }</h4>
+				<c:if test="${not empty post }">
+					<h4>${post.title}</h4>
 					<p>
-						${fn:replace(post.content, newline, '<br/>') }
+						${fn:replace(post.content, newline, '<br/>')}
 					<p>
 				</c:if>
 				</div>
 				<c:if test="${ not empty postList}">
 					<ul class="blog-list">
-					<c:forEach items='${postList }' var='postvo' >
-					<li>
-						<a href="${pageContext.servletContext.contextPath }/blog/${id }/${postvo.category_no } /${postvo.no}">
-						${postvo.title } </a> <span>${$postvo.reg_date } </span>
-					</li>
+					<c:forEach items='${postList }' var='postvo'>
+						<li><a href="${pageContext.request.contextPath}/${id}/${postvo.category_no}/${postvo.no}">${postvo.title} </a> 
+						<span>${postvo.reg_date }</span></li>
 					</c:forEach>
-				</ul>
-				</c:if>
+					</ul>
+				</c:if>				
 			</div>
 		</div>
 
 		<div id="extra">
 			<div class="blog-logo">
-				<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+				<img src="${pageContext.request.contextPath}${blogvo.logo }">
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp"></c:import>

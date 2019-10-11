@@ -8,18 +8,64 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>JBlog</title>
 <Link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/jblog.css">
+<script
+	src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js"
+	type="text/javascript"></script>
+<script>
+	$(function(){
+		$("#btn-insert").click(function(){
+			var CategoryVo = {
+				"category_name" : $("#title1").val(),
+				"description" : $("#desc1").val()
+			};
+			if(categoryvo=""){
+				return;
+			}
+			//AJAX 통신
+			$.ajax({
+				url:"${pageContext.servletContext.contextPath}/api/admin/insertCategory",
+				contentType:"application/json; charset=utf-8",
+				type:"post",
+				dataType:"json",
+				data:,
+				success:function(response){
+					if(response.result =="fail"){
+						console.error(response.message);
+						return;
+					}
+					if(response.data==null){
+						alert("통신실패");
+						return;
+					}
+					var vo = response.data;
+					console.log(vo);
+					$("#list").append(
+					"<tr>" +
+					"<td>" + vo.no + "</td>"+
+					"<td>" + vo.category_name + "</td>"+
+					"<td>" + vo.count + "</td>"+
+					"<td>" + vo.description + "</td>"+
+					"<td><img src='${pageContext.request.contextPath}/assets/images/delete.jpg' onclick='deleteTest(this);' category-no='" + vo.no + "' id=category-'" + vo.no + "' ></td>" +
+					"</tr>"
+					);
+				},
+				error:function(xhr,error){
+					console.err("error"+error);
+				}
+			});
+			
+		});
+		
+	});
+</script>
 </head>
 <body>
 	<div id="container">
 		<c:import url="/WEB-INF/views/includes/header.jsp"></c:import>
 		<div id="wrapper">
 			<div id="content" class="full-screen">
-				<ul class="admin-menu">
-					<li><a href="">기본설정</a></li>
-					<li class="selected">카테고리</li>
-					<li><a href="">글작성</a></li>
-				</ul>
-		      	<table class="admin-cat">
+				<c:import url="/WEB-INF/views/includes/admin-menu.jsp"></c:import>
+		      	<table class="admin-cat" id="list">
 		      		<tr>
 		      			<th>번호</th>
 		      			<th>카테고리명</th>
@@ -27,47 +73,41 @@
 		      			<th>설명</th>
 		      			<th>삭제</th>      			
 		      		</tr>
-					<tr>
-						<td>3</td>
-						<td>미분류</td>
-						<td>10</td>
-						<td>카테고리를 지정하지 않은 경우</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>  
-					<tr>
-						<td>2</td>
-						<td>스프링 스터디</td>
-						<td>20</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
+					<c:forEach items="${list }" var="categoryvo">
+					<tr id="cid-${categoryvo.no }">
+						<td>${categoryvo.no }</td>
+						<td>${categoryvo.category_name }</td>
+						<td>${categoryvo.count }</td>
+						<td>${categoryvo.description }</td>
+						<td>
+						<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"
+								onclick="deleteTest(this);" category-no="${categoryvo.no }"
+								id="category-${categoryvo.no }">
+						</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>스프링 프로젝트</td>
-						<td>15</td>
-						<td>어쩌구 저쩌구</td>
-						<td><img src="${pageContext.request.contextPath}/assets/images/delete.jpg"></td>
-					</tr>					  
+					</c:forEach>				  
 				</table>
       	
       			<h4 class="n-c">새로운 카테고리 추가</h4>
 		      	<table id="admin-cat-add">
 		      		<tr>
 		      			<td class="t">카테고리명</td>
-		      			<td><input type="text" name="name"></td>
+		      			<td><input type="text" name="name" id="title1"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="t">설명</td>
-		      			<td><input type="text" name="desc"></td>
+		      			<td><input type="text" name="desc" id="desc1"></td>
 		      		</tr>
 		      		<tr>
 		      			<td class="s">&nbsp;</td>
-		      			<td><input type="submit" value="카테고리 추가"></td>
+		      			<td><input type="submit" value="카테고리 추가" id="btn-insert"></td>
 		      		</tr>      		      		
 		      	</table> 
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	</div>
+	
 </body>
+
 </html>
