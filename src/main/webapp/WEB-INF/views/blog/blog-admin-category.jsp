@@ -12,6 +12,26 @@
 	src="${pageContext.servletContext.contextPath}/assets/js/jquery/jquery-1.9.0.js"
 	type="text/javascript"></script>
 <script>
+function deleteTest(target) {
+	var no = $(target).attr('category-no');
+	
+	console.log(no);
+	$.ajax({
+		url:"${pageContext.servletContext.contextPath}/api/admin/deletecategory?no="+no,
+		contentType:"application/json; charset=utf-8",
+		type:"delete",
+		success:function(response){
+			if(response.result =="fail"){
+				console.error(response.message);
+				return;
+			}
+			$('#list tr').remove('#cid-'+no)
+			},
+			error:function(xhr,error){
+				console.err("error"+error);
+			}
+		});
+	}
 	$(function(){
 		$("#btn-insert").click(function(){
 			var CategoryVo = {
@@ -27,7 +47,7 @@
 				contentType:"application/json; charset=utf-8",
 				type:"post",
 				dataType:"json",
-				data:,
+				data:JSON.stringify(CategoryVo),
 				success:function(response){
 					if(response.result =="fail"){
 						console.error(response.message);
@@ -81,7 +101,7 @@
 						<td>${categoryvo.description }</td>
 						<td>
 						<img src="${pageContext.request.contextPath}/assets/images/delete.jpg"
-								onclick="deleteTest(this);" category-no="${categoryvo.no }"
+								onclick="deleteTest(this);" category-no="${categoryvo.no}"
 								id="category-${categoryvo.no }">
 						</td>
 					</tr>

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.itcen.jblog.dto.JSONResult;
@@ -30,5 +31,13 @@ public class CategoryController {
 		CategoryVo cartvo = categoryService.get(no);
 		cartvo.setCount(0L);
 		return JSONResult.success(cartvo);
+	}
+	@ResponseBody
+	@RequestMapping("/deletecategory")
+	public JSONResult deleteCategory(@RequestParam Long no, @AuthUser UserVo vo) {
+		Boolean exist=categoryService.delete(no);
+		
+		
+		return JSONResult.success(exist);
 	}
 }

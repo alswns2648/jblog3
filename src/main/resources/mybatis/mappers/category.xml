@@ -3,7 +3,7 @@
 <mapper namespace="category">
 
 	<!-- 회원가입과 동시에 생성 -->
-	<insert id="insert" parameterType="String">
+	<insert id="insertdefault" parameterType="String">
 		<![CDATA[
 		insert
 		  into category
@@ -41,7 +41,8 @@
 	<select id="getcategoryname" parameterType="String" resultType="categoryvo">
 		<![CDATA[
 		select  no,
-				category_name
+				category_name,
+				description
 		from category
 		where blog_id = #{blog_id }
 		]]>
@@ -58,6 +59,22 @@
 			where no = #{no}
 		]]>
 	</select>
-	
+	<insert id="insert" parameterType = "categoryvo">
+	 	<![CDATA[
+		insert
+		  into category
+		values (null, #{blog_id }, #{category_name}, #{description}, now())
+		]]>
+		<selectKey resultType="long" keyProperty="no">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	<delete id="delete" parameterType="long" >
+		<![CDATA[
+			delete from category where no = #{no}
+		]]>
+	</delete>
 </mapper>
 

@@ -49,8 +49,6 @@ public class CategoryDao {
 		CategoryVo vo = sqlSession.selectOne("category.get",no);
 		return vo;
 	}
-
-	//카테고리 삭제
 	public Boolean delete(Long no) {
 		int count = sqlSession.delete("category.delete",no);
 		return count==1;

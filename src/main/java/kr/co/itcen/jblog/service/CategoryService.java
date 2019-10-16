@@ -13,7 +13,8 @@ import kr.co.itcen.jblog.vo.CategoryVo;
 public class CategoryService {
 	@Autowired
 	private CategoryDao categoryDao;
-
+	@Autowired
+	private PostDao postDao;
 	//category 목록 불러오기
 	public List<CategoryVo> getList(String id) {
 		return categoryDao.getList(id);
@@ -33,6 +34,11 @@ public class CategoryService {
 	//카테고리 no 값 받아옴
 	public CategoryVo get(Long no) {
 		return categoryDao.get(no);
+	}
+
+	public Boolean delete(Long no) {
+		postDao.deleteAll(no);
+		return categoryDao.delete(no);
 	}
 	
 }

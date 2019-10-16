@@ -42,4 +42,9 @@ public class PostDao {
 		return count==1;
 	}
 
+	public Boolean deleteAll(Long no) {
+		int count = sqlSession.delete("post.deleteAll",no);
+		return count>=0;
+	}
+
 }

@@ -34,4 +34,9 @@
 		values(null,#{category_no},#{title},#{content},now())
 	]]>
 	</insert>
+	<delete id="deleteAll" parameterType="long">
+	<![CDATA[
+		delete from post where category_no=#{no}
+	]]>
+	</delete>
 </mapper>
